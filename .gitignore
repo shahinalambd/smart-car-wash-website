@@ -1,5 +1,19 @@
-# Raw source images (kept locally, never modified, not needed for the site)
+# Raw source images: kept locally and never modified; the site only uses images/optimized/
 images/originals/
+
+# Raw image drops placed directly in images/ (optimize them into images/optimized/ first)
+images/*.png
+images/*.jpg
+images/*.jpeg
+images/*.webp
+images/*.heic
+
+# Design / raw working files anywhere
+*.psd
+*.ai
+*.raw
+*.tif
+*.tiff
 
 # OS / editor
 .DS_Store
