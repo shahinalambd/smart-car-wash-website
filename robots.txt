@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://shahinalambd.github.io/smart-car-wash-website/sitemap.xml

@@ -5,6 +5,8 @@ const fs = require('fs');
 const path = require('path');
 const C = require('./content');
 const ROOT = path.resolve(process.argv[2] || path.join(__dirname, '..'));
+// Live GitHub Pages URL, used for canonical, hreflang, Open Graph and the sitemap (keep the trailing slash)
+const SITE_URL = 'https://shahinalambd.github.io/smart-car-wash-website/';
 
 let L = 'en', P = '';
 const t = (o) => (o == null ? '' : typeof o === 'string' ? o : o[L]);
@@ -71,8 +73,11 @@ const PAGES = {
 
 function head(id) {
   const pg = PAGES[id];
-  const enHref = (L === 'ar' ? '../' : '') + pg.file;
-  const arHref = (L === 'ar' ? '' : 'ar/') + pg.file;
+  // absolute URLs for canonical / hreflang / Open Graph (index.html is served as the folder URL)
+  const page = pg.file === 'index.html' ? '' : pg.file;
+  const enHref = SITE_URL + page;
+  const arHref = SITE_URL + 'ar/' + page;
+  const canonical = L === 'ar' ? arHref : enHref;
   const fonts = L === 'ar'
     ? 'https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap'
     : 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@500;600;700;800&display=swap';
@@ -86,22 +91,25 @@ function head(id) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${esc(t(pg.title))}</title>
   <meta name="description" content="${esc(t(pg.desc))}">${pg.noindex ? '\n  <meta name="robots" content="noindex">' : ''}
+  <link rel="canonical" href="${canonical}">
   <link rel="alternate" hreflang="en" href="${enHref}">
   <link rel="alternate" hreflang="ar" href="${arHref}">
   <link rel="alternate" hreflang="x-default" href="${enHref}">
   <meta name="theme-color" content="#111318">
   <meta name="color-scheme" content="dark">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="${canonical}">
   <meta property="og:site_name" content="${esc(t(C.brand))}">
   <meta property="og:title" content="${esc(t(pg.title))}">
   <meta property="og:description" content="${esc(t(pg.desc))}">
-  <meta property="og:image" content="${P}images/optimized/og-image.jpg">
+  <meta property="og:image" content="${SITE_URL}images/optimized/og-image.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="${esc(L === 'ar' ? 'شعار سمارت كار واش فوق سيارة رياضية سوداء في استوديو بدبي' : 'Smart Car Wash logo over a black sports car in a Dubai studio')}">
   <meta property="og:locale" content="${L === 'ar' ? 'ar_AE' : 'en_US'}">
   <meta property="og:locale:alternate" content="${L === 'ar' ? 'en_US' : 'ar_AE'}">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="${SITE_URL}images/optimized/og-image.jpg">
   <link rel="icon" href="${P}favicon.ico" sizes="32x32">
   <link rel="icon" href="${P}images/optimized/brand/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="${P}images/optimized/brand/apple-touch-icon.png">
@@ -853,4 +861,22 @@ for (const lang of ['en', 'ar']) {
     fs.writeFileSync(path.join(dir, PAGES[id].file), html.replace(/[ \t]+\n/g, '\n'));
     console.log('wrote', lang, PAGES[id].file, (html.length / 1024).toFixed(1) + 'KB');
   }
+}
+
+/* ---------------- Sitemap + robots ---------------- */
+{
+  const pages = Object.keys(PAGES).filter((id) => !PAGES[id].noindex).map((id) => (PAGES[id].file === 'index.html' ? '' : PAGES[id].file));
+  const urls = pages.flatMap((pg) => ['', 'ar/'].map((pre) => `  <url>
+    <loc>${SITE_URL}${pre}${pg}</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="${SITE_URL}${pg}"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="${SITE_URL}ar/${pg}"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE_URL}${pg}"/>
+  </url>`));
+  fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+${urls.join('\n')}
+</urlset>
+`);
+  fs.writeFileSync(path.join(ROOT, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}sitemap.xml\n`);
+  console.log('wrote sitemap.xml (' + urls.length + ' URLs) and robots.txt');
 }
