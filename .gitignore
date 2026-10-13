@@ -1,0 +1,13 @@
+# Raw source images (kept locally, never modified, not needed for the site)
+images/originals/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Tooling
+node_modules/
+*.log

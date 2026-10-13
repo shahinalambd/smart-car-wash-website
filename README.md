@@ -1,0 +1,45 @@
+# Smart Car Wash — concept website
+
+A premium, bilingual (English + Arabic RTL) demo website for **Smart Car Wash**, a *fictional* luxury car wash and detailing brand in Dubai. Built as a portfolio showcase.
+
+> Concept website for a fictional brand. All prices, reviews, figures and team members are demo content. No forms send or store data, and there are no real phone numbers, emails, addresses or links.
+
+## Highlights
+
+- 6 pages in English plus a full Arabic RTL version in `/ar/`, with a language switcher on every page
+- Hero slider with fade and slow zoom, progress indicators, pause control and swipe
+- Animated counters, scroll reveals, a 4-step timeline and a hover-rich services grid
+- Before/after comparison slider (pointer, touch and keyboard), with tabs
+- Sedan/SUV pricing toggle in AED, a comparison table and membership plans
+- Filterable gallery with an accessible lightbox (`<dialog>`, keyboard, swipe)
+- Testimonials slider, an FAQ accordion, and a multi-step booking form with validation
+- Semantic HTML, ARIA where needed, visible focus states, and WCAG AA colour contrast
+- Respects `prefers-reduced-motion`; responsive WebP/JPG images with lazy loading
+
+## Tech
+
+Static HTML, CSS and vanilla JavaScript: no framework, no build step, no dependencies. It runs on GitHub Pages as-is.
+
+```
+index.html, services.html, packages.html, gallery.html, about.html, booking.html
+ar/                  Arabic (RTL) versions of every page
+assets/css/style.css Design tokens, components, RTL via CSS logical properties
+assets/js/main.js    All interactions (~30 KB unminified)
+assets/icons.svg     SVG icon sprite
+images/optimized/    Production images (WebP + JPG, brand files, og-image)
+```
+
+## Run locally
+
+Serve the folder with any static server, for example:
+
+```
+npx serve .
+# or
+python -m http.server 8080
+```
+
+## Before publishing
+
+- Open Graph and `hreflang` URLs are relative. Once the final GitHub Pages URL is known, switch them to absolute URLs for the best social previews and SEO.
+- Placeholder images still to replace: the paint protection film photo (currently a wheel-cleaning image), a facility photo for About, and a membership banner with empty space on the left.
