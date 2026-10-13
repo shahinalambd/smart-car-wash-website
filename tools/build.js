@@ -273,7 +273,7 @@ S.trust = () => {
 };
 
 S.servicesGrid = () => `
-    <section class="section" id="services" aria-labelledby="services-title">
+    <section class="section section--grey" id="services" aria-labelledby="services-title">
       <div class="container">
         <div class="section-head section-head--split" data-reveal>
           <div>
@@ -285,7 +285,7 @@ S.servicesGrid = () => `
         </div>
         <div class="cards">${C.services.map((s, i) => `
           <article class="card" data-reveal style="--d:${i % 3}">
-            <div class="card-media">${pic(s.img, { sizes: '(min-width: 1100px) 400px, (min-width: 700px) 50vw, 100vw' })}<span class="card-icon">${icon(s.icon)}</span></div>
+            <div class="card-top"><div class="card-media">${pic(s.img, { sizes: '(min-width: 1100px) 400px, (min-width: 700px) 50vw, 100vw' })}</div><span class="card-icon">${icon(s.icon)}</span></div>
             <div class="card-body">
               <h3><a class="stretched" href="services.html#${s.id}">${t(s)}</a></h3>
               <p>${t(s.short)}</p>
@@ -319,7 +319,7 @@ S.beforeAfter = (id = 'results') => {
             <p class="ba-caption">${t(p.c)}</p>
           </div>`).join('');
   return `
-    <section class="section section--alt" id="${id}" aria-labelledby="${id}-title">
+    <section class="section section--dark" id="${id}" aria-labelledby="${id}-title">
       <div class="container">
         <div class="section-head section-head--center" data-reveal>
           <p class="eyebrow">${L === 'ar' ? 'قبل وبعد' : 'Before & after'}</p>
@@ -352,7 +352,7 @@ const priceToggle = (scope) => `
           </div>`;
 
 S.pricing = (o = {}) => `
-    <section class="section" id="${o.id || 'packages'}" aria-labelledby="${o.id || 'packages'}-title">
+    <section class="section ${o.theme || 'section--white'}" id="${o.id || 'packages'}" aria-labelledby="${o.id || 'packages'}-title">
       <div class="container">
         <div class="section-head section-head--center" data-reveal>
           <p class="eyebrow">${L === 'ar' ? 'الباقات والأسعار' : 'Packages & pricing'}</p>
@@ -367,7 +367,7 @@ S.pricing = (o = {}) => `
     </section>`;
 
 S.steps = () => `
-    <section class="section section--charcoal" aria-labelledby="how-title">
+    <section class="section section--grey" aria-labelledby="how-title">
       <div class="container">
         ${head2({ en: 'How it works', ar: 'كيف نعمل' }, { en: 'From booking to <span class="accent">brilliant</span> in four steps.', ar: 'من الحجز إلى <span class="accent">اللمعان</span> في أربع خطوات.' }, null, { center: true, id: 'how-title' })}
         <ol class="steps" data-reveal="fade">${C.steps.map((s, i) => `
@@ -386,7 +386,7 @@ S.steps = () => `
 S.membership = () => {
   const m = C.membership[0];
   return `
-    <section class="section section--tight" aria-labelledby="club-title">
+    <section class="section section--white" aria-labelledby="club-title">
       <div class="container">
         <div class="promo" data-reveal="zoom">
           <div class="hero-media">${pic('banner-membership', { sizes: '(min-width: 1240px) 1180px, 100vw', alt: '' })}</div>
@@ -408,7 +408,7 @@ S.membership = () => {
 const gItem = (g, group, i) => `<button class="g-item" type="button" data-lightbox="${group}" data-cat="${g.cat}" ${full(g.img)} data-caption="${esc(t(g))}" data-alt="${esc(t(C.img[g.img]))}" aria-label="${esc(t(C.ui.viewImage) + ' ' + t(g))}"${i != null ? ` data-reveal style="--d:${i % 4}"` : ''}>${pic(g.img, { sizes: '(min-width: 1100px) 300px, (min-width: 720px) 33vw, 50vw' })}<span class="g-cap"><span><small>${t(C.cats[g.cat])}</small>${t(g)}</span><span class="g-zoom">${icon('expand')}</span></span></button>`;
 
 S.galleryPreview = () => `
-    <section class="section section--alt" aria-labelledby="gallery-title">
+    <section class="section section--grey" aria-labelledby="gallery-title">
       <div class="container">
         <div class="section-head section-head--split" data-reveal>
           <div>
@@ -422,7 +422,7 @@ S.galleryPreview = () => `
     </section>`;
 
 S.testimonials = () => `
-    <section class="section" aria-labelledby="reviews-title">
+    <section class="section section--white" aria-labelledby="reviews-title">
       <div class="container" data-testimonials>
         <div class="section-head section-head--split" data-reveal>
           <div>
@@ -448,7 +448,7 @@ S.testimonials = () => `
     </section>`;
 
 S.faq = (items = C.faq, o = {}) => `
-    <section class="section${o.alt ? ' section--alt' : ''}" id="faq" aria-labelledby="faq-title">
+    <section class="section ${o.theme || 'section--grey'}" id="faq" aria-labelledby="faq-title">
       <div class="container">
         ${head2({ en: 'FAQ', ar: 'الأسئلة الشائعة' }, { en: 'Questions, <span class="accent">answered</span>.', ar: 'إجابات <span class="accent">لأسئلتك</span>.' }, null, { center: true, id: 'faq-title' })}
         <div class="faq" data-reveal>${items.map((f, i) => `
@@ -472,7 +472,7 @@ S.booking = (o = {}) => {
   const stepNames = L === 'ar' ? ['الخدمة', 'السيارة', 'الموعد', 'البيانات'] : ['Service', 'Vehicle', 'Date & time', 'Details'];
   const id = o.id || 'book';
   return `
-    <section class="section${o.alt ? ' section--alt' : ''}" id="${id}" aria-labelledby="${id}-title">
+    <section class="section ${o.theme || 'section--white'}" id="${id}" aria-labelledby="${id}-title">
       <div class="container booking">
         <div class="booking-aside" data-reveal>
           <p class="eyebrow">${L === 'ar' ? 'احجز موعدك' : 'Book online'}</p>
@@ -581,7 +581,7 @@ S.booking = (o = {}) => {
 };
 
 S.cta = (o) => `
-    <section class="section section--tight">
+    <section class="section ${o.theme || 'section--white'}">
       <div class="container">
         <div class="cta-band" data-reveal="zoom">
           <p class="eyebrow" style="justify-content:center">${t(o.eyebrow)}</p>
@@ -599,7 +599,7 @@ S.cta = (o) => `
 const build = {};
 
 build.home = () => `${head('home')}${header('home')}
-  <main id="main" tabindex="-1">${S.hero()}${S.trust()}${S.servicesGrid()}${S.beforeAfter()}${S.pricing({ more: true })}${S.steps()}${S.membership()}${S.galleryPreview()}${S.testimonials()}${S.faq()}${S.booking({ alt: true })}
+  <main id="main" tabindex="-1">${S.hero()}${S.trust()}${S.servicesGrid()}${S.beforeAfter()}${S.pricing({ more: true })}${S.steps()}${S.membership()}${S.galleryPreview()}${S.testimonials()}${S.faq()}${S.booking()}
   </main>${footer()}`;
 
 build.services = () => `${head('services')}${header('services')}
@@ -607,9 +607,10 @@ build.services = () => `${head('services')}${header('services')}
     title: { en: 'Every detail, <span class="accent">perfected</span>.', ar: 'كل التفاصيل، <span class="accent">بإتقان</span>.' },
     lead: { en: 'Six signature services, from a weekly hand wash to multi-year paint protection, each delivered with studio-grade care.', ar: 'ست خدمات مميزة، من الغسيل اليدوي الأسبوعي إلى حماية الطلاء لسنوات، تُقدَّم جميعها بعناية على مستوى الاستوديو.' } })}
     <nav class="chip-nav" aria-label="${L === 'ar' ? 'انتقل إلى خدمة' : 'Jump to a service'}"><div class="container"><ul>${C.services.map((s) => `<li><a href="#${s.id}">${icon(s.icon)}${t(s)}</a></li>`).join('')}</ul></div></nav>
-    <section class="section" style="padding-block-start:0" aria-label="${L === 'ar' ? 'تفاصيل الخدمات' : 'Service details'}">
-      <div class="container">${C.services.map((s, i) => `
-        <article class="svc-detail" id="${s.id}" aria-labelledby="${s.id}-t">
+${C.services.map((s, i) => `
+    <section class="section svc-band section--${i % 2 ? 'grey' : 'white'}" aria-labelledby="${s.id}-t">
+      <div class="container">
+        <article class="svc-detail${i % 2 ? ' svc-detail--flip' : ''}" id="${s.id}">
           <div class="svc-media" data-reveal="zoom">${pic(s.img, { sizes: '(min-width: 960px) 600px, 100vw' })}<span class="tag">${t(C.ui.from)} ${priceTxt(s.sedan)}</span></div>
           <div data-reveal style="--d:1">
             <span class="svc-num">0${i + 1} / 06</span>
@@ -627,10 +628,10 @@ build.services = () => `${head('services')}${header('services')}
               <a class="btn btn-ghost" href="packages.html">${L === 'ar' ? 'عرض الباقات' : 'See packages'}</a>
             </div>
           </div>
-        </article>`).join('')}
+        </article>
       </div>
-    </section>
-    <section class="section section--tight" style="padding-block-start:0">
+    </section>`).join('')}
+    <section class="section section--white">
       <div class="container">
         <div class="promo" data-reveal="zoom">
           <div class="hero-media">${pic('banner-booking', { sizes: '(min-width: 1240px) 1180px, 100vw', alt: '' })}</div>
@@ -649,8 +650,8 @@ build.packages = () => `${head('packages')}${header('packages')}
   <main id="main" tabindex="-1">${pageHero({ img: 'service-ceramic-coating', crumb: C.nav[2], eyebrow: { en: 'Packages & pricing', ar: 'الباقات والأسعار' },
     title: { en: 'Pick your level of <span class="accent">shine</span>.', ar: 'اختر مستوى <span class="accent">اللمعان</span> المناسب لك.' },
     lead: { en: 'Transparent prices in AED for sedans and SUVs, monthly memberships and add-ons to tailor every visit.', ar: 'أسعار واضحة بالدرهم للسيارات السيدان والدفع الرباعي، مع عضويات شهرية وخدمات إضافية تناسب كل زيارة.' } })}
-    ${S.pricing({ id: 'plans' })}
-    <section class="section section--alt" aria-labelledby="compare-title">
+    ${S.pricing({ id: 'plans', theme: 'section--white' })}
+    <section class="section section--grey" aria-labelledby="compare-title">
       <div class="container">
         ${head2({ en: 'Compare', ar: 'المقارنة' }, { en: 'What is included in <span class="accent">each package</span>.', ar: 'ما تشمله <span class="accent">كل باقة</span>.' }, null, { center: true, id: 'compare-title' })}
         <div class="table-wrap" data-reveal tabindex="0" role="region" aria-labelledby="compare-title">
@@ -664,7 +665,7 @@ build.packages = () => `${head('packages')}${header('packages')}
         </div>
       </div>
     </section>
-    <section class="section" id="membership" aria-labelledby="membership-title">
+    <section class="section section--white" id="membership" aria-labelledby="membership-title">
       <div class="container">
         <div class="section-head section-head--center" data-reveal>
           <p class="eyebrow">${L === 'ar' ? 'العضوية الشهرية' : 'Monthly membership'}</p>
@@ -685,16 +686,16 @@ build.packages = () => `${head('packages')}${header('packages')}
         </div>
       </div>
     </section>
-    <section class="section section--light" aria-labelledby="addons-title">
+    <section class="section section--grey" aria-labelledby="addons-title">
       <div class="container">
         ${head2({ en: 'Add-ons', ar: 'خدمات إضافية' }, { en: 'Tailor any visit with <span class="accent">extras</span>.', ar: 'خصّص زيارتك <span class="accent">بإضافات</span> مميزة.' }, { en: 'Add these to any service or package when you book.', ar: 'أضفها إلى أي خدمة أو باقة عند الحجز.' }, { center: true, id: 'addons-title' })}
         <div class="tiles">${C.addons.map((a, i) => `
-          <div class="tile" data-reveal style="--d:${i % 3}"><span class="ico">${icon(a.icon)}</span><h3>${t(a)}</h3><p>${t(a.d)}</p><span class="tile-price" style="color:var(--ink)">${t(C.ui.from)} <b style="color:var(--orange-ink)">${priceTxt(a.p)}</b></span></div>`).join('')}
+          <div class="tile" data-reveal style="--d:${i % 3}"><span class="ico">${icon(a.icon)}</span><h3>${t(a)}</h3><p>${t(a.d)}</p><span class="tile-price">${t(C.ui.from)} <b>${priceTxt(a.p)}</b></span></div>`).join('')}
         </div>
       </div>
     </section>
-    ${S.faq([C.faq[0], C.faq[4], C.faq[3], C.faq[5]])}
-    ${S.cta({ eyebrow: { en: 'Ready when you are', ar: 'جاهزون متى شئت' }, title: { en: 'Your car deserves <span class="accent">the premium treatment</span>.', ar: 'سيارتك تستحق <span class="accent">عناية فاخرة</span>.' }, text: { en: 'Book online in four quick steps and choose a time that suits you.', ar: 'احجز أونلاين في أربع خطوات سريعة واختر الموعد المناسب لك.' }, href2: 'services.html', btn2: { en: 'Explore services', ar: 'استكشف الخدمات' } })}
+    ${S.faq([C.faq[0], C.faq[4], C.faq[3], C.faq[5]], { theme: 'section--white' })}
+    ${S.cta({ theme: 'section--grey', eyebrow: { en: 'Ready when you are', ar: 'جاهزون متى شئت' }, title: { en: 'Your car deserves <span class="accent">the premium treatment</span>.', ar: 'سيارتك تستحق <span class="accent">عناية فاخرة</span>.' }, text: { en: 'Book online in four quick steps and choose a time that suits you.', ar: 'احجز أونلاين في أربع خطوات سريعة واختر الموعد المناسب لك.' }, href2: 'services.html', btn2: { en: 'Explore services', ar: 'استكشف الخدمات' } })}
   </main>${footer()}`;
 
 build.gallery = () => {
@@ -704,7 +705,7 @@ build.gallery = () => {
   <main id="main" tabindex="-1">${pageHero({ img: 'gallery-8-exterior-finish', crumb: C.nav[3], eyebrow: { en: 'Gallery', ar: 'المعرض' },
     title: { en: 'Results that <span class="accent">speak for themselves</span>.', ar: 'نتائج <span class="accent">تتحدث عن نفسها</span>.' },
     lead: { en: 'A look inside our Dubai studio: exterior washes, interior detailing and protection work.', ar: 'نظرة إلى داخل استوديو دبي: غسيل خارجي وتنظيف داخلي وأعمال حماية.' } })}
-    <section class="section" aria-labelledby="work-title">
+    <section class="section section--white" aria-labelledby="work-title">
       <div class="container">
         <h2 class="sr-only" id="work-title">${L === 'ar' ? 'أعمالنا' : 'Our work'}</h2>
         <div class="filter-bar" data-filter-bar role="group" aria-label="${L === 'ar' ? 'تصفية الصور' : 'Filter images'}">${Object.keys(C.cats).map((k, i) => `<button class="filter-btn" type="button" data-filter="${k}" aria-pressed="${i === 0}">${t(C.cats[k])}<span class="count">${counts[k]}</span></button>`).join('')}</div>
@@ -721,7 +722,7 @@ build.about = () => `${head('about')}${header('about')}
   <main id="main" tabindex="-1">${pageHero({ img: 'about-team', crumb: C.nav[4], eyebrow: { en: 'About us', ar: 'من نحن' },
     title: { en: 'Car care, <span class="accent">crafted</span> in Dubai.', ar: 'عناية بالسيارات <span class="accent">بإتقان</span> في دبي.' },
     lead: { en: 'We started Smart Car Wash with a simple belief: every car deserves the attention of a showroom, every single visit.', ar: 'أسسنا سمارت كار واش على قناعة بسيطة: كل سيارة تستحق عناية صالة العرض، في كل زيارة.' } })}
-    <section class="section section--light" aria-labelledby="story-title">
+    <section class="section section--white" aria-labelledby="story-title">
       <div class="container grid-2">
         <div data-reveal>
           <img class="story-logo" src="${P}images/optimized/brand/logo-dark-480.png" srcset="${P}images/optimized/brand/logo-dark-480.png 1x, ${P}images/optimized/brand/logo-dark-960.png 2x" width="360" height="106" alt="Smart Car Wash" loading="lazy">
@@ -739,7 +740,7 @@ build.about = () => `${head('about')}${header('about')}
         <div class="media-frame" data-reveal="zoom" style="--d:1">${pic('about-team', { sizes: '(min-width: 900px) 600px, 100vw' })}</div>
       </div>
     </section>
-    <section class="section" aria-labelledby="values-title">
+    <section class="section section--grey" aria-labelledby="values-title">
       <div class="container">
         ${head2({ en: 'Our values', ar: 'قيمنا' }, { en: 'What every visit <span class="accent">stands for</span>.', ar: 'ما تمثله <span class="accent">كل زيارة</span>.' }, null, { center: true, id: 'values-title' })}
         <div class="tiles">${[
@@ -751,7 +752,7 @@ build.about = () => `${head('about')}${header('about')}
         </div>
       </div>
     </section>
-    <section class="section section--alt" aria-labelledby="studio-title">
+    <section class="section section--white" aria-labelledby="studio-title">
       <div class="container grid-2">
         <div class="media-frame" data-reveal="zoom">${pic('about-craft', { sizes: '(min-width: 900px) 600px, 100vw' })}<div class="media-badge"><b>1,200 m²</b><span>${L === 'ar' ? 'استوديو مكيّف (خيالي)' : 'Climate-controlled studio (fictional)'}</span></div></div>
         <div data-reveal style="--d:1">
@@ -762,7 +763,7 @@ build.about = () => `${head('about')}${header('about')}
         </div>
       </div>
     </section>
-    <section class="section" aria-labelledby="team-title">
+    <section class="section section--grey" aria-labelledby="team-title">
       <div class="container">
         ${head2({ en: 'The team', ar: 'الفريق' }, { en: 'The people behind <span class="accent">the shine</span>.', ar: 'الفريق وراء <span class="accent">اللمعان</span>.' }, { en: 'Fictional team members for this concept website.', ar: 'أعضاء فريق خياليون لهذا الموقع التجريبي.' }, { center: true, id: 'team-title' })}
         <div class="team">${C.team.map((m, i) => `<div class="member" data-reveal style="--d:${i}"><span class="avatar${m.silver ? ' avatar--silver' : ''}" aria-hidden="true">${t(m.i)}</span><h3>${t(m.n)}</h3><span class="role">${t(m.r)}</span><p>${t(m.d)}</p></div>`).join('')}</div>
@@ -776,7 +777,7 @@ build.booking = () => `${head('booking')}${header('booking')}
     title: { en: 'Let us take care of <span class="accent">your car</span>.', ar: 'دعنا نعتني <span class="accent">بسيارتك</span>.' },
     lead: { en: 'Book an appointment in four quick steps, or send us a message and our team will get back to you.', ar: 'احجز موعدك في أربع خطوات سريعة، أو أرسل لنا رسالة وسيتواصل معك فريقنا.' } })}
     ${S.booking()}
-    <section class="section section--alt" id="contact" aria-labelledby="contact-title">
+    <section class="section section--grey" id="contact" aria-labelledby="contact-title">
       <div class="container booking">
         <div class="booking-aside" data-reveal>
           <p class="eyebrow">${L === 'ar' ? 'تواصل معنا' : 'Contact'}</p>
